@@ -42,18 +42,11 @@ double_list *insert_list(double_list *L) {
 	c->next = NULL;
 	c->prior = NULL;
 	int x, n, i = 1;
-	printf_s("插入-值 位置:");
+	printf_s("插入-值 位置(>1):");
 	scanf_s("%d %d", &x, &n);
 	c->ele = x;
 	if (n > q + 1 || n < 1)
 	{
-		return L;
-	}
-	if (n == 1)
-	{
-		a1->prior = c;
-		c->next = a1;
-		a1 = a1->prior;
 		return L;
 	}
 
@@ -83,10 +76,73 @@ double_list *insert_list(double_list *L) {
 		a2->next->prior = c;
 		a2->next = c;
 		a2 = a2->next;
+		return L;
 	}
+	return L;
 }
 
+double_list *dele_list(double_list *L) {
+	int n;
+	double_list *a = L;
+	double_list *b = L;
+	printf_s("删除位置:");
+	scanf_s("%d", &n);
+	while (n>0)
+	{
+		b = a;
+		a = a->next;
+		n--;
+		if (b==NULL)
+		{
+			return L;
+		}
+	}
+	a = b->prior;
+	a->next->next->prior = a;
+	a->next = a->next->next;
+	return L;
+}
 
+double_list *alter_list(double_list *L) {
+	int x,n;
+	printf_s("修改值 位置:");
+	scanf_s("%d %d", &x, &n);
+	double_list *a = L;
+	double_list *b = L;
+	while (n>0)
+	{
+		b = a;
+		a = a->next;
+		n--;
+		if (b == NULL)
+		{
+			return L;
+		}
+	}
+	b->ele = x;
+	return L;
+}
+
+void search_list(double_list *L) {
+	int x, n=1;
+	printf_s("查找值:");
+	scanf_s("%d", &x);
+	double_list *a = L;
+	while (a!=NULL)
+	{
+		if (a->ele == x)
+		{
+			break;
+		}
+		a = a->next;
+		n++;
+	}
+	if (a==NULL)
+	{
+		printf_s("-1\n");
+	}
+	printf_s("%d\n", n);
+}
 
 void prinr_list(double_list *L) {
 	double_list *a = L, *b = L;
